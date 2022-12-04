@@ -1,0 +1,7 @@
+.App {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: pink;
+  height: 100vh; 
+}
+
