@@ -27,11 +27,11 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/canary-fronten:${{ env.TAG }}
+          tags: ${{ secrets.DOCKER_HUB_USERNAME }}/canary-frontend:${{ env.TAG }}
       - name: Set the image tag
         uses: mikefarah/yq@master
         with:
-          cmd: yq -i '.spec.template.spec.containers.[0].image |= "ekke020/canary-fronten:${{ env.TAG }}"' './kubernetes/canary-fronten-deployment.yaml'
+          cmd: yq -i '.spec.template.spec.containers.[0].image |= "ekke020/canary-frontend:${{ env.TAG }}"' './kubernetes/canary-frontend-deployment.yaml'
       - name: Push manifest to deployments repo
         uses: cpina/github-action-push-to-another-repository@main
         env:
@@ -40,7 +40,7 @@ jobs:
           source-directory: 'kubernetes'
           destination-github-username: 'ekke020'
           destination-repository-name: 'canary-deployments'
-          user-email: canary-fronten@github.com
+          user-email: canary-frontend@github.com
           target-branch: main          
-          target-directory: raw-configs/canary-fronten
+          target-directory: raw-configs/canary-frontend
           commit-message: "canary-deployment:${{ env.TAG }}"
